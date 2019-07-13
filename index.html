@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Firebase</title>
+
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBISIYAYUssZJuljLkAH9_LxAs1TQJTmhk",
+        authDomain: "fir-testing-5f3bf.firebaseapp.com",
+        databaseURL: "https://fir-testing-5f3bf.firebaseio.com",
+        projectId: "fir-testing-5f3bf",
+        storageBucket: "",
+        messagingSenderId: "176155565856",
+        appId: "1:176155565856:web:de4c40a5d3bd52de"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <style>
+      td,
+      th {
+        padding: 8px;
+        border: 1px solid black;
+      }
+      form {
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h4>
+      <img id="avatar" width="50px" height="50px" src="avatar.jpg" />
+      <button id="delete-avatar">X</button>
+      <span id="hello">Hello {wstaw imię}</span>
+      <button id="signout">Wyloguj</button>
+    </h4>
+    <form id="form">
+      <label for="text-input">Email</label>
+      <input id="text-input" type="text" />
+      <label for="text-input">Password</label>
+      <input id="pass-input" type="password" />
+      <button id="submit-btn" type="submit">Zaloguj</button>
+    </form>
+
+    <table id="table">
+      <thead>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <form id="add-person-form">
+      <label for="name-input">Name</label>
+      <input id="name-input" type="text" />
+      <label for="surname-input">Surname</label>
+      <input id="surname-input" type="text" />
+      <label for="age-input">Age</label>
+      <input id="age-input" type="number" />
+      <button id="add-person-submit-btn" type="submit">Dodaj ziomka</button>
+      <button style="display: none" id="edit-person-submit-btn" type="submit">
+        Edytuj ziomka
+      </button>
+    </form>
+
+    <br />
+    <form>
+      <label>Zmień profilowe</label>
+      <input type="file" id="file" />
+      <button type="submit" id="change-file">Zmień</button>
+    </form>
+    <script src="auth.js"></script>
+    <script src="storage.js"></script>
+    <script src="read-write.js"></script>
+  </body>
+</html>
