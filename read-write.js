@@ -1,18 +1,43 @@
 // Table element in DOM
 var tableBody = document.querySelector("#table tbody");
 
-// Reference to firebase
-var database = firebase.database();
-
 // Clear data table
 function clearTable() {
   while (tableBody.firstChild) {
-    tableBody.removeChild(tableBody.firstChild);
+    tableBody.removeChild(tableBod.firstChild);
   }
 }
 
 // Read data from firebase
-function getPeople() {}
+function getPeople() {
+  firebase
+    .database()
+    .ref("people")
+    .once("value")
+    .then(function(snapshot) {
+      var people = snapshot.val();
+      console.log(people);
+      var arrayPeople = Object.keys(people).map(function(key) {
+        return {
+          id: key,
+          ...people[key]
+        };
+      });
+
+      arrayPeople.forEach(function(person) {
+        var row = document.createElement("tr");
+        var nameCol = document.createElement("td");
+        var surnameCol = document.createElement("td");
+        var ageCol = document.createElement("td");
+
+        nameCol.innerText = person.name;
+        surnameCol.innerText = person.surname;
+        ageCol.innerText = person.age;
+
+        tableBody.appendChild(row);
+      });
+    });
+}
 
 // Add data to firebase
 function addPerson(name, surname, age) {}
