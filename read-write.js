@@ -24,7 +24,7 @@ function getPeople() {
           ...people[key]
         };
       });
-
+      console.log(arrayPeople);
       clearTable();
 
       arrayPeople.forEach(function(person) {
@@ -50,10 +50,11 @@ function addPerson(name, surname, age) {
     .database()
     .ref("people")
     .push().key;
+  console.log(personId);
 
   firebase
     .database()
-    .ref("people" + personId)
+    .ref("people/" + personId)
     .set({
       name: name,
       surname: surname,
