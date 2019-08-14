@@ -72,6 +72,6 @@ submitButton.addEventListener("click", function(event) {
   signIn(textInput.value, passInput.value);
 });
 
-signOutButton.addEventListener("click", function(event) {
+signOutButton.addEventListener("click", function() {
   signOut();
 });
