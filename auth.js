@@ -10,7 +10,7 @@ function signUp(email, pass) {
       alert("Zarejestrowano pomyślnie");
     })
     .catch(function(e) {
-      alert("Błąd: " + e.message);
+      alert("Error: " + e.message);
     });
 }
 
@@ -23,7 +23,7 @@ function signIn(email, pass) {
       alert("Zalogowano pomyslnie");
     })
     .catch(function(error) {
-      alert("Błąd" + error.message);
+      alert("Error" + error.message);
     });
 }
 
@@ -31,11 +31,12 @@ function signIn(email, pass) {
 function signOut() {
   firebase
     .auth()
+    .signOut()
     .then(function() {
       alert("Wylogowano pomyślnie");
     })
     .catch(function(error) {
-      alert("Błąd" + error.message);
+      alert("Error " + error.message);
     });
 }
 
@@ -49,7 +50,13 @@ function getUserData() {
 }
 
 //Reaction to authorisation changes
-firebase.auth().onAuthStateChanged(function(user) {});
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    hello.innerText = "Hello " + user.email;
+  } else {
+    hello.innerText = "Zaloguj się";
+  }
+});
 
 // *************** Form support
 
