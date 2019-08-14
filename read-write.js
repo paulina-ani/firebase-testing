@@ -4,7 +4,7 @@ var tableBody = document.querySelector("#table tbody");
 // Clear data table
 function clearTable() {
   while (tableBody.firstChild) {
-    tableBody.removeChild(tableBod.firstChild);
+    tableBody.removeChild(tableBody.firstChild);
   }
 }
 
@@ -17,6 +17,7 @@ function getPeople() {
     .then(function(snapshot) {
       var people = snapshot.val();
       console.log(people);
+
       var arrayPeople = Object.keys(people).map(function(key) {
         return {
           id: key,
@@ -24,23 +25,48 @@ function getPeople() {
         };
       });
 
+      clearTable();
+
       arrayPeople.forEach(function(person) {
         var row = document.createElement("tr");
+
         var nameCol = document.createElement("td");
         var surnameCol = document.createElement("td");
         var ageCol = document.createElement("td");
-
         nameCol.innerText = person.name;
         surnameCol.innerText = person.surname;
         ageCol.innerText = person.age;
-
+        row.appendChild(nameCol);
+        row.appendChild(surnameCol);
+        row.appendChild(ageCol);
         tableBody.appendChild(row);
       });
     });
 }
 
 // Add data to firebase
-function addPerson(name, surname, age) {}
+function addPerson(name, surname, age) {
+  var personId = firebase
+    .database()
+    .ref("people")
+    .push().key;
+
+  firebase
+    .database()
+    .ref("people" + personId)
+    .set({
+      name: name,
+      surname: surname,
+      age: age
+    })
+    .then(function() {
+      alert("Dodano pomyślnie");
+      getPeople();
+    })
+    .catch(function(error) {
+      alert("Error " + error.message);
+    });
+}
 
 // Edit data
 function editPerson(personId, name, surname, age) {}
