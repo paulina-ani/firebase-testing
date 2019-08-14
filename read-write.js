@@ -106,3 +106,8 @@ var editAddPersonButton = document.getElementById("edit-person-submit-btn");
 var nameInput = document.getElementById("name-input");
 var surnameInput = document.getElementById("surname-input");
 var ageInput = document.getElementById("age-input");
+
+submitAddPersonButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  addPerson(nameInput.value, surnameInput.value, Number(ageInput.value));
+});
