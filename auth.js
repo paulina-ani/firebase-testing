@@ -1,11 +1,18 @@
-//Reference to authorisation
-var auth = firebase.auth();
-
 //Reference to page title
 var hello = document.getElementById("hello");
 
 //Create user
-function signUp(email, pass) {}
+function signUp(email, pass) {
+  firebase
+    .auth()
+    .createUserWithPassword(email, pass)
+    .then(function() {
+      alert("Zarejestrowano pomyślnie");
+    })
+    .catch(function(e) {
+      alert("Błąd: " + e.message);
+    });
+}
 
 // Login
 function signIn(email, pass) {}
@@ -14,12 +21,16 @@ function signIn(email, pass) {}
 function signOut() {}
 
 //Check if the user is logged in
-function isLoggedIn() {}
+function isLoggedIn() {
+  return !!firebase.auth().currentUser;
+}
 
-function getUserData() {}
+function getUserData() {
+  return firebase.auth().currentUser;
+}
 
 //Reaction to authorisation changes
-auth.onAuthStateChanged(function(user) {});
+firebase.auth().onAuthStateChanged(function(user) {});
 
 // *************** Form support
 
