@@ -33,12 +33,24 @@ function getPeople() {
         var nameCol = document.createElement("td");
         var surnameCol = document.createElement("td");
         var ageCol = document.createElement("td");
+
+        var delCol = document.createElement("td");
+        var delBtn = document.createElement("button");
+
         nameCol.innerText = person.name;
         surnameCol.innerText = person.surname;
         ageCol.innerText = person.age;
+
+        delBtn.innerText = "x";
+        delCol.appendChild(delBtn);
+
+        delBtn.addEventListener("click", function() {
+          removePerson(person.id);
+        });
         row.appendChild(nameCol);
         row.appendChild(surnameCol);
         row.appendChild(ageCol);
+        row.appendChild(delCol);
         tableBody.appendChild(row);
       });
     });
@@ -73,7 +85,19 @@ function addPerson(name, surname, age) {
 function editPerson(personId, name, surname, age) {}
 
 // Delete data
-function removePerson(personId) {}
+function removePerson(personId) {
+  firebase
+    .database()
+    .ref("people/" + personId)
+    .remove()
+    .then(function() {
+      alert("Usunięto pomyślnie");
+      getPeople();
+    })
+    .catch(function(error) {
+      alert("Error" + error.message);
+    });
+}
 
 // *************** Buttons support
 
