@@ -59,3 +59,12 @@ var submitButton = document.getElementById("submit-btn");
 var signOutButton = document.getElementById("signout");
 var textInput = document.getElementById("text-input");
 var passInput = document.getElementById("pass-input");
+
+submitButton.addEventListener("click", function(event) {
+  event.preventDefault(); //zabobieganie wykonania domyślnej akcji
+  signIn(textInput.value, passInput.value);
+});
+
+signOutButton.addEventListener("click", function(event) {
+  signOut();
+});
