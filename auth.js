@@ -15,10 +15,29 @@ function signUp(email, pass) {
 }
 
 // Login
-function signIn(email, pass) {}
+function signIn(email, pass) {
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, pass)
+    .then(function() {
+      alert("Zalogowano pomyslnie");
+    })
+    .catch(function(error) {
+      alert("Błąd" + error.message);
+    });
+}
 
 //Logout
-function signOut() {}
+function signOut() {
+  firebase
+    .auth()
+    .then(function() {
+      alert("Wylogowano pomyślnie");
+    })
+    .catch(function(error) {
+      alert("Błąd" + error.message);
+    });
+}
 
 //Check if the user is logged in
 function isLoggedIn() {
