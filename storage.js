@@ -46,7 +46,7 @@ function getAvatar() {
     .ref("avatars/" + userData.uid)
     .getDownloadURL()
     .then(function(url) {
-      avatar.serAttribute("src", url);
+      avatar.setAttribute("src", url);
     })
     .catch(avatar.setAttribute("src", "avatar.jpg"));
 }

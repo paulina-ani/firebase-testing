@@ -9,19 +9,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Firebase</title>
 
-    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
 
     <script>
+      // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyBISIYAYUssZJuljLkAH9_LxAs1TQJTmhk",
         authDomain: "fir-testing-5f3bf.firebaseapp.com",
         databaseURL: "https://fir-testing-5f3bf.firebaseio.com",
         projectId: "fir-testing-5f3bf",
-        storageBucket: "",
+        storageBucket: "fir-testing-5f3bf.appspot.com",
         messagingSenderId: "176155565856",
         appId: "1:176155565856:web:de4c40a5d3bd52de"
       };
+      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+      function main() {
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        var ratesRef = database.ref("users/rates");
+        ratesRef.on(
+          "child_added",
+          function(snapshot) {
+            console.log("Working");
+            console.log("lat:" + snapshot.val().latitude);
+          },
+          function(err) {
+            console.log(err);
+          }
+        );
+      }
     </script>
 
     <style>
@@ -66,10 +90,13 @@
       <input id="surname-input" type="text" />
       <label for="age-input">Age</label>
       <input id="age-input" type="number" />
-      <button id="add-person-submit-btn" type="submit">Dodaj ziomka</button>
-      <button style="display: none" id="edit-person-submit-btn" type="submit">
-        Edytuj ziomka
+      <button id="add-person-submit-btn" type="submit">
+        Dodaj użytkownika
       </button>
+      <button style="display: none" id="edit-person-submit-btn" type="submit">
+        Edytuj uczestnika
+      </button>
+      <button style="display: none" id="close-edit-btn">X</button>
     </form>
 
     <br />
