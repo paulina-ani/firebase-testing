@@ -48,10 +48,13 @@ function getAvatar() {
     .then(function(url) {
       avatar.setAttribute("src", url);
     })
-    .catch(avatar.setAttribute("src", "avatar.jpg"));
+    .catch(function() {
+      avatar.setAttribute("src", "avatar.jpg");
+    });
 }
 
-deleteImg.addEventListener("click", function() {
+deleteImg.addEventListener("click", function(event) {
+  event.preventDefault();
   deleteAvatar().then(function() {
     getAvatar();
   });
