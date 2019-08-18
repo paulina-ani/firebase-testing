@@ -21,6 +21,8 @@ function signIn(email, pass) {
     .signInWithEmailAndPassword(email, pass)
     .then(function() {
       alert("Zalogowano pomyslnie");
+      textInput.value = "";
+      passInput.value = "";
     })
     .catch(function(error) {
       alert("Error" + error.message);
