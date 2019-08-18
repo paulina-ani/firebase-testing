@@ -36,20 +36,38 @@ function getPeople() {
 
         var delCol = document.createElement("td");
         var delBtn = document.createElement("button");
+        delBtn.innerText = "x";
+        delCol.appendChild(delBtn);
+
+        var editCol = document.createElement("td");
+        var editBtn = document.createElement("button");
+        editBtn.innerText = "EDIT";
+        editCol.appendChild(editBtn);
 
         nameCol.innerText = person.name;
         surnameCol.innerText = person.surname;
         ageCol.innerText = person.age;
 
-        delBtn.innerText = "x";
-        delCol.appendChild(delBtn);
-
         delBtn.addEventListener("click", function() {
           removePerson(person.id);
         });
+
+        editBtn.addEventListener("click", function() {
+          nameInput.value = person.name;
+          surnameInput.value = person.surname;
+          ageInput.value = person.age;
+
+          editId = person.id;
+
+          submitAddPersonButton.style.display = "none";
+          editAddPersonButton.style.display = "inline";
+          closeEditButton.style.display = "inline";
+        });
+
         row.appendChild(nameCol);
         row.appendChild(surnameCol);
         row.appendChild(ageCol);
+        row.appendChild(editCol);
         row.appendChild(delCol);
         tableBody.appendChild(row);
       });
@@ -62,7 +80,7 @@ function addPerson(name, surname, age) {
     .database()
     .ref("people")
     .push().key;
-  console.log(personId);
+  console.log("personID", personId);
 
   firebase
     .database()
@@ -82,7 +100,25 @@ function addPerson(name, surname, age) {
 }
 
 // Edit data
-function editPerson(personId, name, surname, age) {}
+function editPerson(personId, name, surname, age) {
+  var updates = {};
+  updates[personId] = {
+    name,
+    surname,
+    age
+  };
+
+  console.log(updates);
+
+  firebase
+    .database()
+    .ref("people")
+    .update(updates)
+    .then(function() {
+      alert("Zapisano zmiany");
+      getPeople();
+    });
+}
 
 // Delete data
 function removePerson(personId) {
@@ -99,6 +135,7 @@ function removePerson(personId) {
     });
 }
 
+var editId = null;
 // *************** Buttons support
 
 var submitAddPersonButton = document.getElementById("add-person-submit-btn");
@@ -106,8 +143,33 @@ var editAddPersonButton = document.getElementById("edit-person-submit-btn");
 var nameInput = document.getElementById("name-input");
 var surnameInput = document.getElementById("surname-input");
 var ageInput = document.getElementById("age-input");
+var closeEditButton = document.getElementById("close-edit-btn");
 
 submitAddPersonButton.addEventListener("click", function(event) {
   event.preventDefault();
   addPerson(nameInput.value, surnameInput.value, Number(ageInput.value));
 });
+
+editAddPersonButton.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  editPerson(
+    editId,
+    nameInput.value,
+    surnameInput.value,
+    Number(ageInput.value)
+  );
+});
+
+closeEditButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  nameInput.value = "";
+  surnameInput.value = "";
+  ageInput.value = "";
+
+  submitAddPersonButton.style.display = "inline";
+  editAddPersonButton.style.display = "none";
+  closeEditButton.style.display = "none";
+});
+
+getPeople();
