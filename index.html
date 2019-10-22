@@ -49,62 +49,163 @@
     </script>
 
     <style>
+      body {
+        background-image: white;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      #nav {
+        margin: 0 auto;
+        max-width: 100vh;
+        top: 0;
+        padding: 5%;
+        background-color: darkblue;
+        color: white;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .nav__avatar {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .nav__welocme {
+        display: flex;
+        width: 60%;
+        flex-flow: right;
+        flex-direction: column;
+      }
+
+      #delete-avatar {
+        background-color: transparent;
+        color: white;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+      }
+
+      #signout {
+        background-image: linear-gradient(lightblue, white);
+        color: black;
+        border: 2px solid black;
+        font-weight: 100;
+        padding: 3%;
+        text-transform: uppercase;
+        border-radius: 6px;
+        display: inline-block;
+        transition: all 0.3s ease 0s;
+        margin-top: 2%;
+        align-self: center;
+      }
+
+      #main {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .main__forms {
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+        border-right: 2px solid blue;
+      }
+
+      .main__table {
+        padding: 10%;
+      }
+
       td,
       th {
         padding: 8px;
         border: 1px solid black;
       }
       form {
-        margin-bottom: 20px;
-        margin-top: 20px;
+        margin-bottom: 10%;
+        margin-top: 10%;
+        padding: 3%;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+      }
+
+      #submit-btn,
+      #add-person-submit-btn,
+      #change-file {
+        border: none;
+        background-image: linear-gradient(blue, #111);
+        color: #ffffff !important;
+        font-weight: 100;
+        padding: 3%;
+        text-transform: uppercase;
+        border-radius: 6px;
+        display: inline-block;
+        transition: all 0.3s ease 0s;
+        margin-top: 2%;
       }
     </style>
   </head>
   <body>
-    <h4>
-      <img id="avatar" width="50px" height="50px" src="avatar.jpg" />
-      <button id="delete-avatar">X</button>
-      <span id="hello">Hello {wstaw imię}</span>
-      <button id="signout">Wyloguj</button>
-    </h4>
-    <form id="form">
-      <label for="text-input">Email</label>
-      <input id="text-input" type="text" />
-      <label for="text-input">Password</label>
-      <input id="pass-input" type="password" />
-      <button id="submit-btn" type="submit">Zaloguj</button>
-    </form>
+    <header id="nav">
+      <div class="nav__avatar">
+        <img id="avatar" width="70px" height="70px" src="avatar.jpg" />
+        <button id="delete-avatar">X</button>
+      </div>
+      <div class="nav__welcome">
+        <span id="hello">Hello {wstaw imię}</span>
+        <button id="signout">Wyloguj</button>
+      </div>
+    </header>
+    <main id="main">
+      <div class="main__forms">
+        <form id="form">
+          <label for="text-input">Email</label>
+          <input id="text-input" type="text" />
+          <label for="text-input">Password</label>
+          <input id="pass-input" type="password" />
+          <button id="submit-btn" type="submit">Zaloguj</button>
+        </form>
+        <form id="add-person-form">
+          <label for="name-input">Name</label>
+          <input id="name-input" type="text" />
+          <label for="surname-input">Surname</label>
+          <input id="surname-input" type="text" />
+          <label for="age-input">Age</label>
+          <input id="age-input" type="number" />
+          <button id="add-person-submit-btn" type="submit">
+            Dodaj użytkownika
+          </button>
+          <button
+            style="display: none"
+            id="edit-person-submit-btn"
+            type="submit"
+          >
+            Edytuj uczestnika
+          </button>
+          <button style="display: none" id="close-edit-btn">X</button>
+        </form>
 
-    <table id="table">
-      <thead>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <form id="add-person-form">
-      <label for="name-input">Name</label>
-      <input id="name-input" type="text" />
-      <label for="surname-input">Surname</label>
-      <input id="surname-input" type="text" />
-      <label for="age-input">Age</label>
-      <input id="age-input" type="number" />
-      <button id="add-person-submit-btn" type="submit">
-        Dodaj użytkownika
-      </button>
-      <button style="display: none" id="edit-person-submit-btn" type="submit">
-        Edytuj uczestnika
-      </button>
-      <button style="display: none" id="close-edit-btn">X</button>
-    </form>
-
-    <br />
-    <form>
-      <label>Zmień profilowe</label>
-      <input type="file" id="file" />
-      <button type="submit" id="change-file">Zmień</button>
-    </form>
+        <form>
+          <label>Zmień profilowe</label>
+          <input type="file" id="file" />
+          <button type="submit" id="change-file">Zmień</button>
+        </form>
+      </div>
+      <div class="main__table">
+        <table id="table">
+          <thead>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
     <script src="auth.js"></script>
     <script src="storage.js"></script>
     <script src="read-write.js"></script>
